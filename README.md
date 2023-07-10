@@ -152,9 +152,15 @@ if err != nil {
 - `tdenginefuncs.Sin(expr)`
 - `tdenginefuncs.Sum(expr)`
 
+## TODO
+
+- Add more tdengine funcs
+- Add `Drop`, `Alter` methods for database and (s)tables
+- Add more tests
+
 ## How to contribute
 
-- If you have an idea or a question, just post a pull request or an issue. Every feedback is appreciated.
+If you have an idea or a question, just post a pull request or an issue. Every feedback is appreciated.
 
 ## License
 
