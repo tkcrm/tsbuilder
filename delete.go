@@ -1,4 +1,4 @@
-package tdenginebuilder
+package tsbuilder
 
 import (
 	"bytes"
@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-var _ tdenginebuilder = (*deleteBuilder)(nil)
+var _ tdEngineSqlBuilder = (*deleteBuilder)(nil)
 
 type deleteBuilder struct {
 	from            string

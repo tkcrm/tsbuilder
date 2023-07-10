@@ -7,7 +7,7 @@ High performance SQL builder with zero dependency for [TDEngine](https://tdengin
 ## Install
 
 ```bash
-go get github.com/tkcrm/tdenginebuilder
+go get github.com/tkcrm/tsbuilder
 ```
 
 ## Examples
@@ -15,7 +15,7 @@ go get github.com/tkcrm/tdenginebuilder
 ### Database
 
 ```go
-b := tdenginebuilder.NewDatabaseBuilder().
+b := tsbuilder.NewDatabaseBuilder().
     Name("db_name").
     Options(
         "PRECISION ms",
@@ -31,7 +31,7 @@ if err != nil {
 ### Supertable
 
 ```go
-b := tdenginebuilder.NewSTableBuilder().
+b := tsbuilder.NewSTableBuilder().
     Name("s_table_name").
     Definitions(
         "ts TIMESTAMP",
@@ -56,7 +56,7 @@ if err != nil {
 ### Table
 
 ```go
-b := tdenginebuilder.NewCreateTableBuilder().
+b := tsbuilder.NewCreateTableBuilder().
     TableName("test_table").
     STable("s_table_name").
     Tags(map[string]any{
@@ -74,13 +74,13 @@ if err != nil {
 ### Insert
 
 ```go
-b := tdenginebuilder.NewInsertBuilder()
+b := tsbuilder.NewInsertBuilder()
 
 b.AddTable("test_table_1").
     Using("s_table_name_2").
     Columns("column_1", "column_2", "column_3").
-    Values(1, 2, tdenginefuncs.Now()).
-    Values(1, 2, tdenginefuncs.Abs("4321")).
+    Values(1, 2, tsfuncs.Now()).
+    Values(1, 2, tsfuncs.Abs("4321")).
     Values(1, 2, 3)
 
 // add table 2
@@ -105,7 +105,7 @@ if err != nil {
 ### Select
 
 ```go
-b := tdenginebuilder.NewSelectBuilder().
+b := tsbuilder.NewSelectBuilder().
     Columns("col_1", "col_2", "col_3").
     From("dbName.test_table").
     Where(
@@ -122,7 +122,7 @@ if err != nil {
 ### Delete
 
 ```go
-b := tdenginebuilder.NewDeleteBuilder().
+b := tsbuilder.NewDeleteBuilder().
     From("dbName.test_table").
     Where(
         "asasd > asd",
@@ -137,20 +137,20 @@ if err != nil {
 
 ## Available funcs
 
-- `tdenginefuncs.Abs(expr)`
-- `tdenginefuncs.Acos(expr)`
-- `tdenginefuncs.Asin(expr)`
-- `tdenginefuncs.Atan(expr)`
-- `tdenginefuncs.Avg(expr)`
-- `tdenginefuncs.Ceil(expr)`
-- `tdenginefuncs.Cos(expr)`
-- `tdenginefuncs.Cos(expr)`
-- `tdenginefuncs.Count(columns ...string)`
-- `tdenginefuncs.Floor(expr)`
-- `tdenginefuncs.Now()`
-- `tdenginefuncs.Round(expr)`
-- `tdenginefuncs.Sin(expr)`
-- `tdenginefuncs.Sum(expr)`
+- `tsfuncs.Abs(expr)`
+- `tsfuncs.Acos(expr)`
+- `tsfuncs.Asin(expr)`
+- `tsfuncs.Atan(expr)`
+- `tsfuncs.Avg(expr)`
+- `tsfuncs.Ceil(expr)`
+- `tsfuncs.Cos(expr)`
+- `tsfuncs.Cos(expr)`
+- `tsfuncs.Count(columns ...string)`
+- `tsfuncs.Floor(expr)`
+- `tsfuncs.Now()`
+- `tsfuncs.Round(expr)`
+- `tsfuncs.Sin(expr)`
+- `tsfuncs.Sum(expr)`
 
 ## TODO
 

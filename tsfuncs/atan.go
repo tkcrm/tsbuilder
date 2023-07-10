@@ -1,4 +1,4 @@
-package tdenginefuncs
+package tsfuncs
 
 type atan struct {
 	expr string

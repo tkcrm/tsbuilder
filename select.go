@@ -1,4 +1,4 @@
-package tdenginebuilder
+package tsbuilder
 
 import (
 	"bytes"
@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-var _ tdenginebuilder = (*selectBuilder)(nil)
+var _ tdEngineSqlBuilder = (*selectBuilder)(nil)
 
 type selectBuilder struct {
 	columns         []string

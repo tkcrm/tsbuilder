@@ -1,4 +1,4 @@
-package tdenginebuilder
+package tsbuilder
 
 import (
 	"bytes"
@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-var _ tdenginebuilder = (*databaseBuilder)(nil)
+var _ tdEngineSqlBuilder = (*databaseBuilder)(nil)
 
 type databaseBuilder struct {
 	name    string

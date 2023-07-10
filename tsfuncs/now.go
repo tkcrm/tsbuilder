@@ -1,4 +1,4 @@
-package tdenginefuncs
+package tsfuncs
 
 type now struct{}
 

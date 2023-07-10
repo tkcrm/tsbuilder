@@ -1,4 +1,4 @@
-package tdenginefuncs
+package tsfuncs
 
 type TDEngineFunc interface {
 	String() string

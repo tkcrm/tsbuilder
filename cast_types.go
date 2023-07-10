@@ -1,9 +1,9 @@
-package tdenginebuilder
+package tsbuilder
 
 import (
 	"fmt"
 
-	"github.com/tkcrm/tdenginebuilder/tdenginefuncs"
+	"github.com/tkcrm/tsbuilder/tsfuncs"
 )
 
 func castType(value any) (string, error) {
@@ -14,7 +14,7 @@ func castType(value any) (string, error) {
 		return fmt.Sprint("'" + v + "'"), nil
 	case bool:
 		return fmt.Sprintf("%v", v), nil
-	case tdenginefuncs.TDEngineFunc:
+	case tsfuncs.TDEngineFunc:
 		return v.String(), nil
 	default:
 		return "", fmt.Errorf("undefined type: %T", v)

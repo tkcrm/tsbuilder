@@ -1,15 +1,15 @@
-package tdenginebuilder_test
+package tsbuilder_test
 
 import (
 	"fmt"
 	"testing"
 
-	"github.com/tkcrm/tdenginebuilder"
-	"github.com/tkcrm/tdenginebuilder/tdenginefuncs"
+	"github.com/tkcrm/tsbuilder"
+	"github.com/tkcrm/tsbuilder/tsfuncs"
 )
 
 func Test_Create(t *testing.T) {
-	b := tdenginebuilder.NewCreateTableBuilder().
+	b := tsbuilder.NewCreateTableBuilder().
 		TableName("test_table").
 		STable("s_table_name").
 		Tags(map[string]any{
@@ -27,7 +27,7 @@ func Test_Create(t *testing.T) {
 }
 
 func Test_Insert(t *testing.T) {
-	b := tdenginebuilder.NewInsertBuilder()
+	b := tsbuilder.NewInsertBuilder()
 
 	// add table 1
 	b.AddTable("test_table_1").
@@ -41,8 +41,8 @@ func Test_Insert(t *testing.T) {
 	b.AddTable("test_table_1").
 		Using("s_table_name_2").
 		Columns("column_1", "column_2", "column_3").
-		Values(1, 2, tdenginefuncs.Now()).
-		Values(1, 2, tdenginefuncs.Abs("4321")).
+		Values(1, 2, tsfuncs.Now()).
+		Values(1, 2, tsfuncs.Abs("4321")).
 		Values(1, 2, 3)
 
 	// add table 2
@@ -67,7 +67,7 @@ func Test_Insert(t *testing.T) {
 }
 
 func Test_Delete(t *testing.T) {
-	b := tdenginebuilder.NewDeleteBuilder().
+	b := tsbuilder.NewDeleteBuilder().
 		From("dbName.test_table").
 		Where(
 			"asasd > asd",
@@ -83,7 +83,7 @@ func Test_Delete(t *testing.T) {
 }
 
 func Test_Select(t *testing.T) {
-	b := tdenginebuilder.NewSelectBuilder().
+	b := tsbuilder.NewSelectBuilder().
 		Columns("col_1", "col_2", "col_3").
 		From("dbName.test_table").
 		Where(
@@ -100,7 +100,7 @@ func Test_Select(t *testing.T) {
 }
 
 func Test_Database(t *testing.T) {
-	b := tdenginebuilder.NewDatabaseBuilder().
+	b := tsbuilder.NewDatabaseBuilder().
 		Name("db_name").
 		Options(
 			"adsasd 12",
@@ -116,7 +116,7 @@ func Test_Database(t *testing.T) {
 }
 
 func Test_STable(t *testing.T) {
-	b := tdenginebuilder.NewSTableBuilder().
+	b := tsbuilder.NewSTableBuilder().
 		Name("s_table_name").
 		Definitions("vasdvasdv", "caqwqdw").
 		Tags(map[string]any{
