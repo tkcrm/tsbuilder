@@ -4,6 +4,17 @@
 
 High performance SQL builder with zero dependency for [TDEngine](https://tdengine.com)
 
+## Features
+
+- Databases builder
+- Super table builder
+- Table builder
+- Select builder
+- Insert builder
+- Delete builder
+- Native TDEngine query funcs
+- Zero dependency
+
 ## Install
 
 ```bash
@@ -40,7 +51,7 @@ b := tsbuilder.NewSTableBuilder().
         "speed FLOAT",
     ).
     Tags(map[string]any{
-        "deviceID": "BINARY(36)",
+        "deviceID": tsfuncs.Binary("36"),
     }).
     Options(
         "option_1 value_1",
@@ -142,6 +153,7 @@ if err != nil {
 - `tsfuncs.Asin(expr)`
 - `tsfuncs.Atan(expr)`
 - `tsfuncs.Avg(expr)`
+- `tsfuncs.Binary(expr)`
 - `tsfuncs.Ceil(expr)`
 - `tsfuncs.Cos(expr)`
 - `tsfuncs.Cos(expr)`
@@ -155,7 +167,7 @@ if err != nil {
 ## TODO
 
 - Add more tdengine funcs
-- Add `Drop`, `Alter` methods for database and (s)tables
+- Add `Drop`, `Alter` methods for database, super table and table
 - Add more tests
 
 ## How to contribute
