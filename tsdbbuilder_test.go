@@ -13,8 +13,8 @@ func Test_Create(t *testing.T) {
 		TableName("test_table").
 		STable("s_table_name").
 		Tags(map[string]any{
-			"test":  1,
-			"test2": 2,
+			"test":  tsfuncs.Binary("16"),
+			"test2": tsfuncs.Binary("24"),
 			"test3": 3,
 		})
 

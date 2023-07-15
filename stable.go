@@ -64,8 +64,10 @@ func (s *sTableBuilder) Build() (string, error) {
 
 	// add tags
 	if len(s.tags) > 0 {
+		tagsKeys := make([]string, 0, len(s.tags))
 		tagsValues := make([]any, 0, len(s.tags))
-		for _, value := range s.tags {
+		for key, value := range s.tags {
+			tagsKeys = append(tagsKeys, key)
 			tagsValues = append(tagsValues, value)
 		}
 
@@ -75,6 +77,7 @@ func (s *sTableBuilder) Build() (string, error) {
 			if err != nil {
 				return "", err
 			}
+			b.WriteString(tagsKeys[index] + " ")
 			b.WriteString(v)
 
 			if index != len(tagsValues)-1 {
