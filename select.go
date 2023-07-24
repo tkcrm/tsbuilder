@@ -116,22 +116,22 @@ func (s *selectBuilder) Build() (string, error) {
 
 	// add limit
 	if s.limit != nil {
-		b.WriteString(fmt.Sprintf("%d", *s.limit) + " ")
+		b.WriteString(fmt.Sprintf("LIMIT %d", *s.limit) + " ")
 	}
 
 	// add slimit
 	if s.slimit != nil {
-		b.WriteString(fmt.Sprintf("%d", *s.slimit) + " ")
+		b.WriteString(fmt.Sprintf("SLIMIT %d", *s.slimit) + " ")
 	}
 
 	// add offset
 	if s.offset != nil {
-		b.WriteString(fmt.Sprintf("%d", *s.offset) + " ")
+		b.WriteString(fmt.Sprintf("OFFSET %d", *s.offset) + " ")
 	}
 
 	// add soffset
 	if s.soffset != nil {
-		b.WriteString(fmt.Sprintf("%d", *s.soffset) + " ")
+		b.WriteString(fmt.Sprintf("SOFFSET %d", *s.soffset) + " ")
 	}
 
 	b.WriteString(";")

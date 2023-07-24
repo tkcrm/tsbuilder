@@ -49,7 +49,7 @@ func Test_Insert(t *testing.T) {
 	b.AddTable("test_table_2").
 		Using("s_table_name").
 		Tags(map[string]any{
-			"tag_1": 1,
+			"tag_1": 1.1,
 			"tag_2": 2,
 			"tag_3": 3,
 		}).
