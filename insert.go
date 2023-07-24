@@ -89,10 +89,22 @@ func (s *insertBuilder) Build() (string, error) {
 
 		// add tags
 		if len(table.tags) > 0 {
+			tagsKeys := make([]string, 0, len(table.tags))
 			tagsValues := make([]any, 0, len(table.tags))
-			for _, value := range table.tags {
+			for key, value := range table.tags {
+				tagsKeys = append(tagsKeys, key)
 				tagsValues = append(tagsValues, value)
 			}
+
+			b.WriteString("(")
+			for index, value := range tagsKeys {
+				b.WriteString(value)
+
+				if index != len(tagsKeys)-1 {
+					b.WriteString(", ")
+				}
+			}
+			b.WriteString(") ")
 
 			b.WriteString("TAGS (")
 			for index, value := range tagsValues {
