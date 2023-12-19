@@ -101,17 +101,17 @@ func (s *selectBuilder) Build() (string, error) {
 
 	// add group by
 	if s.groupBy != "" {
-		b.WriteString(s.groupBy + " ")
+		b.WriteString(" GROUP BY " + s.groupBy + " ")
 	}
 
 	// add partition by
 	if s.partitionBy != "" {
-		b.WriteString(s.partitionBy + " ")
+		b.WriteString(" PARTITION BY " + s.partitionBy + " ")
 	}
 
 	// add order by
 	if s.orderBy != "" {
-		b.WriteString(s.orderBy + " ")
+		b.WriteString(" ORDER BY " + s.orderBy + " ")
 	}
 
 	// add limit

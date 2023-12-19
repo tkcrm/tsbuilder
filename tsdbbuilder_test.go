@@ -83,13 +83,19 @@ func Test_Delete(t *testing.T) {
 }
 
 func Test_Select(t *testing.T) {
+	limit := uint64(10)
+	offset := uint64(0)
+
 	b := tsbuilder.NewSelectBuilder().
 		Columns("col_1", "col_2", "col_3").
 		From("dbName.test_table").
 		Where(
 			"asasd > asd",
 			"asdfasdf <= 1212",
-		)
+		).
+		OrderBy("ts desc").
+		Limit(&limit).
+		Offset(&offset)
 
 	sql, err := b.Build()
 	if err != nil {
