@@ -126,12 +126,15 @@ func (s *selectBuilder) Build() (string, error) {
 
 	// add offset
 	if s.offset != nil {
-		b.WriteString(fmt.Sprintf("OFFSET %d", *s.offset) + " ")
+		b.WriteString(fmt.Sprintf("OFFSET %d", *s.offset))
 	}
 
 	// add soffset
 	if s.soffset != nil {
-		b.WriteString(fmt.Sprintf("SOFFSET %d", *s.soffset) + " ")
+		if s.offset != nil {
+			b.WriteString(" ")
+		}
+		b.WriteString(fmt.Sprintf("SOFFSET %d", *s.soffset))
 	}
 
 	b.WriteString(";")
