@@ -146,6 +146,17 @@ if err != nil {
 }
 ```
 
+### Drop table
+
+```go
+b := tsbuilder.NewDropTableBuilder().Tables("db_name.table_name")
+
+sql, err := b.Build()
+if err != nil {
+    t.Fatal(err)
+}
+```
+
 ## Available funcs
 
 - `tsfuncs.Abs(expr)`
