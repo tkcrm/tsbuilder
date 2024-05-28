@@ -60,7 +60,7 @@ func Test_Insert(t *testing.T) {
 		Columns("column_1", "column_2", "column_3").
 		Values(1, 2, tsfuncs.Now()).
 		Values(1, 2, tsfuncs.Abs("4321")).
-		Values(1, 2, 3)
+		Values(1, 2, nil)
 
 	// add table 2
 	b.AddTable("test_table_2").
