@@ -18,6 +18,8 @@ func castType(value any) (string, error) {
 		return fmt.Sprintf("%v", v), nil
 	case tsfuncs.TDEngineFunc:
 		return v.String(), nil
+	case nil:
+		return "NULL", nil
 	default:
 		return "", fmt.Errorf("undefined type: %T", v)
 	}
