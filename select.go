@@ -15,10 +15,10 @@ type selectBuilder struct {
 	groupBy         string
 	partitionBy     string
 	orderBy         string
-	limit           *uint64
-	slimit          *uint64
-	offset          *uint64
-	soffset         *uint64
+	limit           *uint32
+	slimit          *uint32
+	offset          *uint32
+	soffset         *uint32
 }
 
 func NewSelectBuilder() *selectBuilder {
@@ -58,22 +58,22 @@ func (s *selectBuilder) OrderBy(value string) *selectBuilder {
 	return s
 }
 
-func (s *selectBuilder) Limit(value *uint64) *selectBuilder {
+func (s *selectBuilder) Limit(value *uint32) *selectBuilder {
 	s.limit = value
 	return s
 }
 
-func (s *selectBuilder) SLimit(value *uint64) *selectBuilder {
+func (s *selectBuilder) SLimit(value *uint32) *selectBuilder {
 	s.slimit = value
 	return s
 }
 
-func (s *selectBuilder) Offset(value *uint64) *selectBuilder {
+func (s *selectBuilder) Offset(value *uint32) *selectBuilder {
 	s.offset = value
 	return s
 }
 
-func (s *selectBuilder) SOffset(value *uint64) *selectBuilder {
+func (s *selectBuilder) SOffset(value *uint32) *selectBuilder {
 	s.soffset = value
 	return s
 }

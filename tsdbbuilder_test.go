@@ -111,16 +111,16 @@ func Test_Delete(t *testing.T) {
 }
 
 func Test_Select(t *testing.T) {
-	limit := uint64(10)
-	offset := uint64(0)
+	limit := uint32(10)
+	offset := uint32(0)
 
 	tests := []struct {
 		columns []string
 		from    string
 		wheres  []string
 		orderBy string
-		limit   uint64
-		offset  uint64
+		limit   uint32
+		offset  uint32
 		expect  string
 	}{
 		{
