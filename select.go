@@ -6,9 +6,9 @@ import (
 	"strings"
 )
 
-var _ tdEngineSqlBuilder = (*selectBuilder)(nil)
+var _ TdEngineSQLBuilder = (*SelectBuilder)(nil)
 
-type selectBuilder struct {
+type SelectBuilder struct {
 	columns         []string
 	from            string
 	whereConditions []string
@@ -21,64 +21,64 @@ type selectBuilder struct {
 	soffset         *uint32
 }
 
-func NewSelectBuilder() *selectBuilder {
-	return &selectBuilder{
+func NewSelectBuilder() *SelectBuilder {
+	return &SelectBuilder{
 		columns:         make([]string, 0),
 		whereConditions: make([]string, 0),
 	}
 }
 
-func (s *selectBuilder) Columns(columns ...string) *selectBuilder {
+func (s *SelectBuilder) Columns(columns ...string) *SelectBuilder {
 	s.columns = columns
 	return s
 }
 
-func (s *selectBuilder) From(from string) *selectBuilder {
+func (s *SelectBuilder) From(from string) *SelectBuilder {
 	s.from = from
 	return s
 }
 
-func (s *selectBuilder) Where(conditions ...string) *selectBuilder {
+func (s *SelectBuilder) Where(conditions ...string) *SelectBuilder {
 	s.whereConditions = append(s.whereConditions, conditions...)
 	return s
 }
 
-func (s *selectBuilder) GroupBy(value string) *selectBuilder {
+func (s *SelectBuilder) GroupBy(value string) *SelectBuilder {
 	s.groupBy = value
 	return s
 }
 
-func (s *selectBuilder) PartitionBy(value string) *selectBuilder {
+func (s *SelectBuilder) PartitionBy(value string) *SelectBuilder {
 	s.partitionBy = value
 	return s
 }
 
-func (s *selectBuilder) OrderBy(value string) *selectBuilder {
+func (s *SelectBuilder) OrderBy(value string) *SelectBuilder {
 	s.orderBy = value
 	return s
 }
 
-func (s *selectBuilder) Limit(value *uint32) *selectBuilder {
+func (s *SelectBuilder) Limit(value *uint32) *SelectBuilder {
 	s.limit = value
 	return s
 }
 
-func (s *selectBuilder) SLimit(value *uint32) *selectBuilder {
+func (s *SelectBuilder) SLimit(value *uint32) *SelectBuilder {
 	s.slimit = value
 	return s
 }
 
-func (s *selectBuilder) Offset(value *uint32) *selectBuilder {
+func (s *SelectBuilder) Offset(value *uint32) *SelectBuilder {
 	s.offset = value
 	return s
 }
 
-func (s *selectBuilder) SOffset(value *uint32) *selectBuilder {
+func (s *SelectBuilder) SOffset(value *uint32) *SelectBuilder {
 	s.soffset = value
 	return s
 }
 
-func (s *selectBuilder) Build() (string, error) {
+func (s *SelectBuilder) Build() (string, error) {
 	if err := s.validate(); err != nil {
 		return "", fmt.Errorf("validate error: %w", err)
 	}
@@ -126,7 +126,7 @@ func (s *selectBuilder) Build() (string, error) {
 
 	// add offset
 	if s.offset != nil {
-		b.WriteString(fmt.Sprintf("OFFSET %d", *s.offset))
+		fmt.Fprintf(b, "OFFSET %d", *s.offset)
 	}
 
 	// add soffset
@@ -134,7 +134,7 @@ func (s *selectBuilder) Build() (string, error) {
 		if s.offset != nil {
 			b.WriteString(" ")
 		}
-		b.WriteString(fmt.Sprintf("SOFFSET %d", *s.soffset))
+		fmt.Fprintf(b, "SOFFSET %d", *s.soffset)
 	}
 
 	b.WriteString(";")
@@ -142,7 +142,7 @@ func (s *selectBuilder) Build() (string, error) {
 	return b.String(), nil
 }
 
-func (s *selectBuilder) validate() error {
+func (s *SelectBuilder) validate() error {
 	if s.from == "" {
 		return ErrEmptyFrom
 	}

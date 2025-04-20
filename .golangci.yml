@@ -1,0 +1,109 @@
+version: "2"
+run:
+  modules-download-mode: readonly
+  tests: false
+  allow-parallel-runners: true
+linters:
+  default: all
+  disable:
+    - depguard
+    - err113
+    - exhaustive
+    - exhaustruct
+    - gochecknoglobals
+    - godox
+    - mnd
+    - nlreturn
+    - recvcheck
+    - tagalign
+    - varnamelen
+    - wrapcheck
+    - wsl
+    - ireturn
+  settings:
+    cyclop:
+      max-complexity: 25
+    funlen:
+      lines: 190
+      statements: -1
+      ignore-comments: true
+    gocognit:
+      min-complexity: 80
+    gocyclo:
+      min-complexity: 45
+    interfacebloat:
+      max: 20
+    lll:
+      line-length: 170
+      tab-width: 2
+    tagliatelle:
+      case:
+        rules:
+          json: snake
+          yaml: snake
+        use-field-name: true
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - funlen
+          - misspell
+        path: _test\.go
+      - path: (.+)\.go$
+        text: missing type in composite literal
+      - path: (.+)\.go$
+        text: "var-naming: don't use an underscore in package name"
+      - path: (.+)\.go$
+        text: should not use underscores in package names
+    paths:
+      - .*\.sql\.go
+      - .*\.pb\.go
+      - .*\.connect\.go
+      - bin
+      - api
+      - schema
+      - sql
+      - internal/templates
+      - pb
+      - schema
+      - third_party$
+      - builtin$
+      - examples$
+issues:
+  fix: true
+severity:
+  default: error
+  rules:
+    - linters:
+        - godox
+      severity: warning
+    - linters:
+        - dupl
+      severity: info
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - gofumpt
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - .*\.sql\.go
+      - .*\.pb\.go
+      - .*\.connect\.go
+      - bin
+      - api
+      - schema
+      - sql
+      - internal/templates
+      - pb
+      - schema
+      - third_party$
+      - builtin$
+      - examples$

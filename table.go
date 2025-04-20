@@ -6,31 +6,31 @@ import (
 	"strings"
 )
 
-var _ tdEngineSqlBuilder = (*createTableBuilder)(nil)
+var _ TdEngineSQLBuilder = (*CreateTableBuilder)(nil)
 
-type createTableBuilder struct {
+type CreateTableBuilder struct {
 	tableName  string
 	sTableName string
 	tags       map[string]any
 }
 
-func NewCreateTableBuilder() *createTableBuilder {
-	return &createTableBuilder{
+func NewCreateTableBuilder() *CreateTableBuilder {
+	return &CreateTableBuilder{
 		tags: make(map[string]any),
 	}
 }
 
-func (s *createTableBuilder) TableName(tableName string) *createTableBuilder {
+func (s *CreateTableBuilder) TableName(tableName string) *CreateTableBuilder {
 	s.tableName = tableName
 	return s
 }
 
-func (s *createTableBuilder) STable(sTableName string) *createTableBuilder {
+func (s *CreateTableBuilder) STable(sTableName string) *CreateTableBuilder {
 	s.sTableName = sTableName
 	return s
 }
 
-func (s *createTableBuilder) Tags(tags map[string]any) *createTableBuilder {
+func (s *CreateTableBuilder) Tags(tags map[string]any) *CreateTableBuilder {
 	if tags == nil {
 		tags = make(map[string]any)
 	}
@@ -38,7 +38,7 @@ func (s *createTableBuilder) Tags(tags map[string]any) *createTableBuilder {
 	return s
 }
 
-func (s *createTableBuilder) Build() (string, error) {
+func (s *CreateTableBuilder) Build() (string, error) {
 	if err := s.validate(); err != nil {
 		return "", fmt.Errorf("validate error: %w", err)
 	}
@@ -84,7 +84,7 @@ func (s *createTableBuilder) Build() (string, error) {
 	return b.String(), nil
 }
 
-func (s createTableBuilder) validate() error {
+func (s CreateTableBuilder) validate() error {
 	if s.tableName == "" {
 		return ErrEmptyTableName
 	}

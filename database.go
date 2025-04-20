@@ -6,30 +6,30 @@ import (
 	"strings"
 )
 
-var _ tdEngineSqlBuilder = (*databaseBuilder)(nil)
+var _ TdEngineSQLBuilder = (*DatabaseBuilder)(nil)
 
-type databaseBuilder struct {
+type DatabaseBuilder struct {
 	name    string
 	options []string
 }
 
-func NewDatabaseBuilder() *databaseBuilder {
-	return &databaseBuilder{
+func NewDatabaseBuilder() *DatabaseBuilder {
+	return &DatabaseBuilder{
 		options: make([]string, 0),
 	}
 }
 
-func (s *databaseBuilder) Name(name string) *databaseBuilder {
+func (s *DatabaseBuilder) Name(name string) *DatabaseBuilder {
 	s.name = name
 	return s
 }
 
-func (s *databaseBuilder) Options(options ...string) *databaseBuilder {
+func (s *DatabaseBuilder) Options(options ...string) *DatabaseBuilder {
 	s.options = append(s.options, options...)
 	return s
 }
 
-func (s *databaseBuilder) Build() (string, error) {
+func (s *DatabaseBuilder) Build() (string, error) {
 	if err := s.validate(); err != nil {
 		return "", fmt.Errorf("validate error: %w", err)
 	}
@@ -48,7 +48,7 @@ func (s *databaseBuilder) Build() (string, error) {
 	return b.String(), nil
 }
 
-func (s databaseBuilder) validate() error {
+func (s DatabaseBuilder) validate() error {
 	if s.name == "" {
 		return ErrEmptyDatabaseName
 	}

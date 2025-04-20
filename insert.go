@@ -7,9 +7,9 @@ import (
 	"strings"
 )
 
-var _ tdEngineSqlBuilder = (*insertBuilder)(nil)
+var _ TdEngineSQLBuilder = (*InsertBuilder)(nil)
 
-type insertTableData struct {
+type InsertTableData struct {
 	tableName string
 	using     string
 	columns   []string
@@ -17,24 +17,24 @@ type insertTableData struct {
 	tags      map[string]any
 }
 
-type insertBuilder struct {
-	tablesData []*insertTableData
+type InsertBuilder struct {
+	tablesData []*InsertTableData
 }
 
-func NewInsertBuilder() *insertBuilder {
-	return &insertBuilder{
-		tablesData: make([]*insertTableData, 0),
+func NewInsertBuilder() *InsertBuilder {
+	return &InsertBuilder{
+		tablesData: make([]*InsertTableData, 0),
 	}
 }
 
-func (s *insertBuilder) AddTable(tableName string) *insertTableData {
+func (s *InsertBuilder) AddTable(tableName string) *InsertTableData {
 	for idx, table := range s.tablesData {
 		if table.tableName == tableName {
 			s.tablesData = append(s.tablesData[:idx], s.tablesData[idx+1:]...)
 		}
 	}
 
-	tData := &insertTableData{
+	tData := &InsertTableData{
 		tableName: tableName,
 		tags:      make(map[string]any),
 		columns:   make([]string, 0),
@@ -46,22 +46,22 @@ func (s *insertBuilder) AddTable(tableName string) *insertTableData {
 	return tData
 }
 
-func (s *insertTableData) Using(v string) *insertTableData {
+func (s *InsertTableData) Using(v string) *InsertTableData {
 	s.using = v
 	return s
 }
 
-func (s *insertTableData) Columns(columns ...string) *insertTableData {
+func (s *InsertTableData) Columns(columns ...string) *InsertTableData {
 	s.columns = columns
 	return s
 }
 
-func (s *insertTableData) Values(values ...any) *insertTableData {
+func (s *InsertTableData) Values(values ...any) *InsertTableData {
 	s.values = append(s.values, values)
 	return s
 }
 
-func (s *insertTableData) Tags(tags map[string]any) *insertTableData {
+func (s *InsertTableData) Tags(tags map[string]any) *InsertTableData {
 	if tags == nil {
 		return s
 	}
@@ -70,7 +70,7 @@ func (s *insertTableData) Tags(tags map[string]any) *insertTableData {
 	return s
 }
 
-func (s *insertBuilder) Build() (string, error) {
+func (s *InsertBuilder) Build() (string, error) {
 	b := bytes.NewBuffer([]byte{})
 	b.WriteString("INSERT INTO ")
 
@@ -160,7 +160,7 @@ func (s *insertBuilder) Build() (string, error) {
 	return b.String(), nil
 }
 
-func (s *insertTableData) validate() error {
+func (s *InsertTableData) validate() error {
 	if s.tableName == "" {
 		return ErrEmptyTableName
 	}

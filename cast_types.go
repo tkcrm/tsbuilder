@@ -2,6 +2,7 @@ package tsbuilder
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/tkcrm/tsbuilder/tsfuncs"
 )
@@ -13,9 +14,9 @@ func castType(value any) (string, error) {
 	case float32, float64:
 		return fmt.Sprintf("%f", v), nil
 	case string:
-		return fmt.Sprint("'" + v + "'"), nil
+		return "'" + v + "'", nil
 	case bool:
-		return fmt.Sprintf("%v", v), nil
+		return strconv.FormatBool(v), nil
 	case tsfuncs.TDEngineFunc:
 		return v.String(), nil
 	case nil:
