@@ -1,5 +1,5 @@
 package tsbuilder
 
-type tdEngineSqlBuilder interface {
+type TdEngineSQLBuilder interface {
 	Build() (sql string, err error)
 }

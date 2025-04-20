@@ -2,28 +2,29 @@ package tsbuilder
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"strings"
 )
 
-var _ tdEngineSqlBuilder = (*dropTableBuilder)(nil)
+var _ TdEngineSQLBuilder = (*DropTableBuilder)(nil)
 
-type dropTableBuilder struct {
+type DropTableBuilder struct {
 	tables []string
 }
 
-func NewDropTableBuilder() *dropTableBuilder {
-	return &dropTableBuilder{
+func NewDropTableBuilder() *DropTableBuilder {
+	return &DropTableBuilder{
 		tables: make([]string, 0),
 	}
 }
 
-func (s *dropTableBuilder) Tables(tables ...string) *dropTableBuilder {
+func (s *DropTableBuilder) Tables(tables ...string) *DropTableBuilder {
 	s.tables = append(s.tables, tables...)
 	return s
 }
 
-func (s *dropTableBuilder) Build() (string, error) {
+func (s *DropTableBuilder) Build() (string, error) {
 	if err := s.validate(); err != nil {
 		return "", fmt.Errorf("validate error: %w", err)
 	}
@@ -42,9 +43,9 @@ func (s *dropTableBuilder) Build() (string, error) {
 	return b.String(), nil
 }
 
-func (s *dropTableBuilder) validate() error {
+func (s *DropTableBuilder) validate() error {
 	if len(s.tables) == 0 {
-		return fmt.Errorf("tables are required")
+		return errors.New("tables are required")
 	}
 
 	return nil

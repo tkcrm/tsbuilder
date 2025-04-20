@@ -6,39 +6,39 @@ import (
 	"strings"
 )
 
-var _ tdEngineSqlBuilder = (*sTableBuilder)(nil)
+var _ TdEngineSQLBuilder = (*STableBuilder)(nil)
 
-type sTableBuilder struct {
+type STableBuilder struct {
 	name        string
 	definitions []string
 	options     []string
 	tags        map[string]any
 }
 
-func NewSTableBuilder() *sTableBuilder {
-	return &sTableBuilder{
+func NewSTableBuilder() *STableBuilder {
+	return &STableBuilder{
 		definitions: make([]string, 0),
 		options:     make([]string, 0),
 		tags:        make(map[string]any),
 	}
 }
 
-func (s *sTableBuilder) Name(name string) *sTableBuilder {
+func (s *STableBuilder) Name(name string) *STableBuilder {
 	s.name = name
 	return s
 }
 
-func (s *sTableBuilder) Definitions(items ...string) *sTableBuilder {
+func (s *STableBuilder) Definitions(items ...string) *STableBuilder {
 	s.definitions = append(s.definitions, items...)
 	return s
 }
 
-func (s *sTableBuilder) Options(items ...string) *sTableBuilder {
+func (s *STableBuilder) Options(items ...string) *STableBuilder {
 	s.options = append(s.options, items...)
 	return s
 }
 
-func (s *sTableBuilder) Tags(tags map[string]any) *sTableBuilder {
+func (s *STableBuilder) Tags(tags map[string]any) *STableBuilder {
 	if tags == nil {
 		tags = make(map[string]any)
 	}
@@ -46,7 +46,7 @@ func (s *sTableBuilder) Tags(tags map[string]any) *sTableBuilder {
 	return s
 }
 
-func (s *sTableBuilder) Build() (string, error) {
+func (s *STableBuilder) Build() (string, error) {
 	if err := s.validate(); err != nil {
 		return "", fmt.Errorf("validate error: %w", err)
 	}
@@ -98,7 +98,7 @@ func (s *sTableBuilder) Build() (string, error) {
 	return b.String(), nil
 }
 
-func (s sTableBuilder) validate() error {
+func (s STableBuilder) validate() error {
 	if s.name == "" {
 		return ErrEmptySTableName
 	}

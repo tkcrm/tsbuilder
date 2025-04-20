@@ -6,30 +6,30 @@ import (
 	"strings"
 )
 
-var _ tdEngineSqlBuilder = (*deleteBuilder)(nil)
+var _ TdEngineSQLBuilder = (*DeleteBuilder)(nil)
 
-type deleteBuilder struct {
+type DeleteBuilder struct {
 	from            string
 	whereConditions []string
 }
 
-func NewDeleteBuilder() *deleteBuilder {
-	return &deleteBuilder{
+func NewDeleteBuilder() *DeleteBuilder {
+	return &DeleteBuilder{
 		whereConditions: make([]string, 0),
 	}
 }
 
-func (s *deleteBuilder) From(from string) *deleteBuilder {
+func (s *DeleteBuilder) From(from string) *DeleteBuilder {
 	s.from = from
 	return s
 }
 
-func (s *deleteBuilder) Where(conditions ...string) *deleteBuilder {
+func (s *DeleteBuilder) Where(conditions ...string) *DeleteBuilder {
 	s.whereConditions = append(s.whereConditions, conditions...)
 	return s
 }
 
-func (s *deleteBuilder) Build() (string, error) {
+func (s *DeleteBuilder) Build() (string, error) {
 	if err := s.validate(); err != nil {
 		return "", fmt.Errorf("validate error: %w", err)
 	}
@@ -51,7 +51,7 @@ func (s *deleteBuilder) Build() (string, error) {
 	return b.String(), nil
 }
 
-func (s *deleteBuilder) validate() error {
+func (s *DeleteBuilder) validate() error {
 	if s.from == "" {
 		return ErrEmptyTableName
 	}
